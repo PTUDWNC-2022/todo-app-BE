@@ -7,6 +7,8 @@ router.get('/', todosController.list);
 
 // router.post('/', todosController.create);
 // router.put('/:id', todosController.update);
-// router.delete('/:id', todosController.delete)
+
+/* DELETE a todo */
+router.delete('/:id', todosController.delete)
 
 module.exports = router;
