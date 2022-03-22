@@ -6,7 +6,7 @@ const todosController = require('./todosController');
 router.get('/', todosController.list);
 
 // router.post('/', todosController.create);
-// router.put('/:id', todosController.update);
+router.put('/:id', todosController.update);
 
 /* DELETE a todo */
 router.delete('/:id', todosController.delete)

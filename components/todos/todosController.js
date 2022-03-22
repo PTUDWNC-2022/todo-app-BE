@@ -17,3 +17,12 @@ exports.delete = async (req, res) => {
 		res.status(404).json({ message: 'Error!' });
 	}
 };
+
+exports.update = async (req, res) => {
+	const updateOne = await todosService.update(req.params.id, req.body);
+	if (updateOne) {
+		res.status(200).json({ message: 'Successfully update todo.' });
+	} else {
+		res.status(404).json({ message: 'Error!' });
+	}
+}
