@@ -25,4 +25,12 @@ exports.update = async (req, res) => {
 	} else {
 		res.status(404).json({ message: 'Error!' });
 	}
-}
+};
+exports.creatnew = async (req, res) => {
+	const todo = await todosService.creatnew(req.body);
+	if (insertOne) {
+		res.status(200).json({ message: 'Successfully update todo.' });
+	} else {
+		res.status(500).json({ message: 'Error!' });
+	}
+};

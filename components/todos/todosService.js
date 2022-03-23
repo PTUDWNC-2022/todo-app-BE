@@ -20,3 +20,12 @@ exports.update = async (todoId, newBody) => {
 
 	return null;
 }
+app.listen(PORT, function() {
+	console.log('Express listening on port' + PORT + '!');
+  });
+exports.creatnew = async (todoId) => {
+	const result = await todosModel.creatnew(todoId);
+	if (result.insertedId ) return result;
+
+	return null;
+};
