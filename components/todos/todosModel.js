@@ -36,11 +36,12 @@ exports.update = async (todoId, newBody) => {
 		throw new Error(error);
 	}
 }
-exports.creatnew = async (todoId, newBody) => {
+
+exports.create = async (newBody) => {
 	try {
 		const result = await db()
 			.collection('todos')
-			.insertOne({ newBody});
+			.insertOne({ name: newBody.name, isCompleted: newBody.isCompleted });
 		return result;
 	} catch (error) {
 		throw new Error(error);
