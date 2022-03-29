@@ -7,8 +7,27 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const todosRouter = require('./components/todos');
+const cors = require('cors');
+
+const allowList = ['http://localhost:3000', 'https://todosapp-advancedwebdev.herokuapp.com'];
+
+const corsOptionsDelegate = (req, callback) => {
+  let corsOptions;
+
+  let isDomainAllowed = allowList.indexOf(req.header('Origin')) !== -1;
+
+  if (isDomainAllowed) {
+    // Enable CORS for this request
+    corsOptions = { origin: true };
+  } else {
+    // Disable CORS for this request
+    corsOptions = { origin: false };
+  }
+  callback(null, corsOptions);
+}
 
 const app = express();
+app.use(cors(corsOptionsDelegate));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

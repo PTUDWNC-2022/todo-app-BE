@@ -24,7 +24,7 @@ exports.delete = async (todoId) => {
 exports.update = async (todoId, newBody) => {
 	const filter = { _id: ObjectId(todoId) };
 	const options = { upsert: false };
-	const update = { $set: { name: newBody.name, isCompleted: newBody.isCompleted } };
+	const update = { $set: { ...newBody } };
 	try {
 		const result = await db().collection('todos').updateOne(
 			filter,
