@@ -9,7 +9,7 @@ const usersRouter = require('./routes/users');
 const todosRouter = require('./components/todos');
 const cors = require('cors');
 
-const allowList = ['http://localhost:3000', 'https://todosapp-advancedwebdev.herokuapp.com'];
+const allowList = ['http://localhost:3000', 'https://todo-app-fe-nine.vercel.app'];
 
 const corsOptionsDelegate = (req, callback) => {
   let corsOptions;
