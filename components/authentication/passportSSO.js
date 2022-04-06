@@ -8,7 +8,7 @@ passport.use(new GoogleStrategy({
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CALLBACK_URL
     },
-    async (req, accessToken, refreshToken, profile, done) => {
+    async (req, _, accessToken, profile, done) => {
         const defaultUser = {
             fullName: profile.displayName,
             email: profile.emails[0].value,
@@ -18,7 +18,8 @@ passport.use(new GoogleStrategy({
 
         try {
             const user = await authenticationService.loginWithSocial(defaultUser.email);
-            done(null, { mongodbUser: user, socialUser: defaultUser });
+            const accessToken = await authenticationService.createJwt(user);
+            done(null, { mongodbUser: user, socialUser: {...defaultUser, accessToken} });
         } catch (e) {
             done(null, e);
         }

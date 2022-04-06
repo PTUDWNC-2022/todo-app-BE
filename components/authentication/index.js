@@ -26,7 +26,7 @@ router.get('/login/failed', (req, res) => {
     });
 });
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
    req.logout();
    res.redirect(`${process.env.FE_HOST_DOMAIN}/login/`);
 });
