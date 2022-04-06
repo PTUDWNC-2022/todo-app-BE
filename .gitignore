@@ -24,3 +24,4 @@ yarn-error.log*
 public/template xlsx/download_grade.xlsx
 
 .env
+.idea

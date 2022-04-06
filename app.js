@@ -3,7 +3,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const passport = require('./components/authentication/passport');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
+
+require('./components/authentication/passport');
+require('./components/authentication/passportSSO');
 
 const indexRouter = require('./routes/index');
 const todosRouter = require('./components/todos');
@@ -22,7 +26,7 @@ const corsOptionsDelegate = (req, callback) => {
 
 	if (isDomainAllowed) {
 		// Enable CORS for this request
-		corsOptions = { origin: true };
+		corsOptions = { origin: true, credentials: true };
 	} else {
 		// Disable CORS for this request
 		corsOptions = { origin: false };
@@ -37,11 +41,14 @@ app.use(cors(corsOptionsDelegate));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+app.use(cookieSession({ name: 'session', keys: ['DevDuy'], maxAge: 24 * 60 * 60 * 100 }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', authenticationRouter);

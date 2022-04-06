@@ -23,7 +23,6 @@ exports.update = async (todoId, newBody) => {
 
 exports.create = async (newBody) => {
 	const result = await todosModel.create(newBody);
-	console.log(result)
 	if (result.insertedId) return result;
 
 	return null;

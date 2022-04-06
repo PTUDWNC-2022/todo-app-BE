@@ -9,8 +9,7 @@ exports.register = async (email, password) => {
 		throw new Error('This account has already existed');
 	}
 
-	const user = await authenticationModel.create(email, password);
-	return user;
+	return await authenticationModel.create(email, password);
 };
 
 exports.login = async (email, password) => {
@@ -24,6 +23,15 @@ exports.login = async (email, password) => {
 		throw new Error('Invalid password');
 	}
 	return user;
+};
+
+exports.loginWithSocial = async (email) => {
+	const user = await authenticationModel.checkExistUserByEmail(email);
+	if (user) {
+		return user;
+	} else {
+		return await authenticationModel.create(email, 'DefaultPassword');
+	}
 };
 
 exports.createJwt = (user) => {
