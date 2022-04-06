@@ -28,7 +28,7 @@ router.get('/login/failed', (req, res) => {
 
 router.get('/logout', (req, res) => {
    req.logout();
-   res.redirect(`${process.env.FE_HOST_DOMAIN}/login/`);
+   res.redirect(`${process.env.FE_HOST_DOMAIN}/login`);
 });
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -36,7 +36,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get('/google/callback', passport.authenticate('google', {
     failureMessage: 'Cannot login to Google. Please try again later!',
     failureRedirect: errorRedirect,
-    successRedirect: `${process.env.FE_HOST_DOMAIN}/login/`
+    successRedirect: `${process.env.FE_HOST_DOMAIN}/login`
 }));
 
 router.get('/facebook', passport.authenticate('facebook', { scope: ['profile', 'email'] }));
@@ -44,7 +44,7 @@ router.get('/facebook', passport.authenticate('facebook', { scope: ['profile', '
 router.get('/facebook/callback', passport.authenticate('facebook', {
     failureMessage: 'Cannot login to Facebook. Please try again later!',
     failureRedirect: errorRedirect,
-    successRedirect: `${process.env.FE_HOST_DOMAIN}/login/`
+    successRedirect: `${process.env.FE_HOST_DOMAIN}/login`
 }));
 
 module.exports = router;
