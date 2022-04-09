@@ -5,6 +5,8 @@ const todosController = require('./todosController');
 /* GET todos listing. */
 router.get('/', todosController.list);
 
+router.get('/:userId', todosController.getTodoByUserId);
+
 router.post('/', todosController.create);
 
 router.put('/:id', todosController.update);

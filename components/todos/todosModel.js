@@ -40,8 +40,24 @@ exports.create = async (newBody) => {
 	try {
 		const result = await db()
 			.collection(TODOS)
-			.insertOne({ name: newBody.name, isCompleted: newBody.isCompleted });
+			.insertOne({
+				name: newBody.name,
+				isCompleted: newBody.isCompleted,
+				userId: ObjectId(newBody.userId),
+			});
 		return result;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+exports.getTodoByUserId = async (userId) => {
+	try {
+		const todos = await db()
+			.collection(TODOS)
+			.find({ userId: ObjectId(userId) })
+			.toArray();
+		return todos;
 	} catch (error) {
 		throw new Error(error);
 	}

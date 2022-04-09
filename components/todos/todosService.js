@@ -27,3 +27,10 @@ exports.create = async (newBody) => {
 
 	return null;
 };
+
+exports.getTodoByUserId = async (userId) => {
+	const todos = await todosModel.getTodoByUserId(userId);
+	if (todos) return todos;
+
+	return null;
+};

@@ -35,3 +35,12 @@ exports.create = async (req, res) => {
 		res.status(500).json({ message: 'Error!' });
 	}
 };
+
+exports.getTodoByUserId = async (req, res) => {
+	const todos = await todosService.getTodoByUserId(req.params.userId);
+	if (todos) {
+		res.status(200).json(todos);
+	} else {
+		res.status(404).json({ message: 'Error! Not found!' });
+	}
+};

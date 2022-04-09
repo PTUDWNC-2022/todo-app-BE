@@ -6,7 +6,9 @@ exports.register = async (email, password) => {
 	//validation
 	const isExist = await authenticationModel.checkExistUserByEmail(email);
 	if (isExist) {
-		throw new Error('This account has already existed');
+		throw new Error(
+			`An account already exists with the email address ${email}`
+		);
 	}
 
 	return await authenticationModel.create(email, password);
@@ -15,12 +17,12 @@ exports.register = async (email, password) => {
 exports.login = async (email, password) => {
 	const user = await authenticationModel.checkExistUserByEmail(email);
 	if (!user) {
-		throw new Error('User not found!');
+		throw new Error('We cannot find an account with that email address');
 	}
 
 	const isValid = bcrypt.compareSync(password, user.password);
 	if (!isValid) {
-		throw new Error('Invalid password');
+		throw new Error('Your password is incorrect');
 	}
 	return user;
 };
