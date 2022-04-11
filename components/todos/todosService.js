@@ -16,7 +16,7 @@ exports.delete = async (todoId) => {
 
 exports.update = async (todoId, newBody) => {
 	const result = await todosModel.update(todoId, newBody);
-	if (result.modifiedCount) return result;
+	if (result.acknowledged) return result;
 
 	return null;
 }

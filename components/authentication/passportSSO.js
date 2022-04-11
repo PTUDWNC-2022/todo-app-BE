@@ -19,7 +19,7 @@ passport.use(new GoogleStrategy({
         try {
             const user = await authenticationService.loginWithSocial(defaultUser.email);
             const accessToken = await authenticationService.createJwt(user);
-            done(null, { mongodbUser: user, socialUser: {...defaultUser, accessToken} });
+            done(null, { user, socialUser: {...defaultUser, accessToken} });
         } catch (e) {
             done(null, e);
         }
@@ -42,7 +42,7 @@ passport.use(new FacebookStrategy({
 
         try {
             const user = await authenticationService.loginWithSocial(defaultUser.email);
-            done(null, { mongodbUser: user, socialUser: defaultUser });
+            done(null, { user, socialUser: defaultUser });
         } catch (e) {
             done(null, e);
         }
