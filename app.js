@@ -22,7 +22,7 @@ const allowList = [
 const corsOptionsDelegate = (req, callback) => {
 	let corsOptions;
 
-	let isDomainAllowed = allowList.indexOf(req.header('Origin')) !== -1;
+	let isDomainAllowed = allowList.indexOf(req.headers.origin) !== -1;
 
 	if (isDomainAllowed) {
 		// Enable CORS for this request
