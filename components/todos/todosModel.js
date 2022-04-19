@@ -4,8 +4,7 @@ const { db } = require('../../models/db');
 
 exports.list = async () => {
 	try {
-		const todos = await db().collection(TODOS).find().toArray();
-		return todos;
+		return await db().collection(TODOS).find().toArray();
 	} catch (error) {
 		throw new Error(error);
 	}
@@ -13,10 +12,9 @@ exports.list = async () => {
 
 exports.delete = async (todoId) => {
 	try {
-		const result = await db()
-			.collection(TODOS)
-			.deleteOne({ _id: ObjectId(todoId) });
-		return result;
+		return await db()
+      .collection(TODOS)
+      .deleteOne({ _id: ObjectId(todoId) });
 	} catch (error) {
 		throw new Error(error);
 	}
@@ -27,10 +25,7 @@ exports.update = async (todoId, newBody) => {
 	const options = { upsert: false };
 	const update = { $set: { ...newBody } };
 	try {
-		const result = await db()
-			.collection(TODOS)
-			.updateOne(filter, update, options);
-		return result;
+		return await db().collection(TODOS).updateOne(filter, update, options);
 	} catch (error) {
 		throw new Error(error);
 	}
@@ -38,14 +33,13 @@ exports.update = async (todoId, newBody) => {
 
 exports.create = async (newBody) => {
 	try {
-		const result = await db()
-			.collection(TODOS)
-			.insertOne({
-				name: newBody.name,
-				isCompleted: newBody.isCompleted,
-				userId: ObjectId(newBody.userId),
-			});
-		return result;
+		return await db()
+      .collection(TODOS)
+      .insertOne({
+        name: newBody.name,
+        isCompleted: newBody.isCompleted,
+        userId: ObjectId(newBody.userId),
+      });
 	} catch (error) {
 		throw new Error(error);
 	}
@@ -53,11 +47,10 @@ exports.create = async (newBody) => {
 
 exports.getTodoByUserId = async (userId) => {
 	try {
-		const todos = await db()
-			.collection(TODOS)
-			.find({ userId: ObjectId(userId) })
-			.toArray();
-		return todos;
+		return await db()
+      .collection(TODOS)
+      .find({ userId: ObjectId(userId) })
+      .toArray();
 	} catch (error) {
 		throw new Error(error);
 	}

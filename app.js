@@ -12,6 +12,7 @@ require('./components/authentication/passportSSO');
 const indexRouter = require('./routes/index');
 const todosRouter = require('./components/todos');
 const authenticationRouter = require('./components/authentication');
+const labelsRouter = require('./components/labels');
 const cors = require('cors');
 
 const allowList = [
@@ -57,6 +58,7 @@ app.use(
 	passport.authenticate('jwt', { session: false }),
 	todosRouter
 );
+app.use('/labels', passport.authenticate('jwt', { session: false }), labelsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

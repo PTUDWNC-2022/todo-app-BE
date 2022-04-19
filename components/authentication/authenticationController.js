@@ -1,4 +1,5 @@
 const authenticationService = require('./authenticationService');
+const labelsService = require('../labels/labelsService');
 
 exports.register = async (req, res) => {
 	try {
@@ -6,6 +7,7 @@ exports.register = async (req, res) => {
 			req.body.email,
 			req.body.password
 		);
+		await labelsService.create(user.insertedId);
 		res.status(201).json({ message: 'Registered successfully!' });
 	} catch (error) {
 		res.status(500).json({ errors: error.message });
