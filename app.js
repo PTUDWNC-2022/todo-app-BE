@@ -13,6 +13,7 @@ const indexRouter = require('./routes/index');
 const todosRouter = require('./components/todos');
 const authenticationRouter = require('./components/authentication');
 const labelsRouter = require('./components/labels');
+const usersRouter = require('./components/users');
 const cors = require('cors');
 
 const allowList = [
@@ -59,6 +60,11 @@ app.use(
 	todosRouter
 );
 app.use('/labels', passport.authenticate('jwt', { session: false }), labelsRouter);
+app.use(
+	'/user',
+	passport.authenticate('jwt', { session: false }),
+	usersRouter
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

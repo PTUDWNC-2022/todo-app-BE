@@ -2,6 +2,17 @@ const { TODOS } = require('../../models/collections');
 const { ObjectId } = require('mongodb');
 const { db } = require('../../models/db');
 
+exports.findOneById = async (id) => {
+	try {
+		const result = await db()
+			.collection(TODOS)
+			.findOne({ _id: ObjectId(id) })
+		return result
+	} catch (error) {
+		throw new Error(error)
+	}
+}
+
 exports.list = async () => {
 	try {
 		return await db().collection(TODOS).find().toArray();
@@ -39,6 +50,7 @@ exports.create = async (newBody) => {
         name: newBody.name,
         isCompleted: newBody.isCompleted,
         userId: ObjectId(newBody.userId),
+        createdDate: Date.now(),
       });
 	} catch (error) {
 		throw new Error(error);

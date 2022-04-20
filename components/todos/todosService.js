@@ -1,4 +1,5 @@
 const todosModel = require('./todosModel');
+const usersModel = require('../users/usersModel');
 
 exports.list = async () => {
 	const todos = await todosModel.list();
@@ -22,10 +23,22 @@ exports.update = async (todoId, newBody) => {
 }
 
 exports.create = async (newBody) => {
-	const result = await todosModel.create(newBody);
-	if (result.insertedId) return result;
+	try {
+    const result = await todosModel.create(newBody);
+    const getNewTodo = await todosModel.findOneById(
+      result.insertedId.toString()
+    );
 
-	return null;
+    //Update column order array to board collection
+    await usersModel.pushTodoOrder(
+      getNewTodo.userId.toString(),
+      getNewTodo._id.toString()
+    );
+
+    return getNewTodo;
+  } catch (error) {
+		throw new Error(error);
+	}
 };
 
 exports.getTodoByUserId = async (userId) => {
