@@ -44,3 +44,16 @@ exports.getTodoByUserId = async (req, res) => {
 		res.status(404).json({ message: 'Error! Not found!' });
 	}
 };
+
+exports.updateAdditionalLabels = async (req, res) => {
+	try {
+		const updateOne = await todosService.updateAdditionalLabels(req.params.id, req.body.newLabelsArray);
+		if (updateOne) {
+			res.status(200).json({ message: 'Successfully update additional labels.' });
+		} else {
+			res.status(500).json({ message: 'Error!' });
+		}
+	} catch (e) {
+		res.status(500).json({ errors: e.message });
+	}
+};

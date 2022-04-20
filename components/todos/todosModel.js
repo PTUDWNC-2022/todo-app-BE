@@ -1,4 +1,4 @@
-const { TODOS } = require('../../models/collections');
+const { TODOS, LABELS} = require('../../models/collections');
 const { ObjectId } = require('mongodb');
 const { db } = require('../../models/db');
 
@@ -65,5 +65,18 @@ exports.getTodoByUserId = async (userId) => {
       .toArray();
 	} catch (error) {
 		throw new Error(error);
+	}
+};
+
+exports.updateAdditionalLabels = async (todoId, newLabelsArray) => {
+	try {
+		return await db()
+			.collection(TODOS)
+			.updateOne(
+				{ _id: ObjectId(todoId) },
+				{ $set: { additionalLabels: newLabelsArray } }
+			);
+	} catch (e) {
+		throw new Error(e);
 	}
 };

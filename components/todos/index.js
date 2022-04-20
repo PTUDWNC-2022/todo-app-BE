@@ -11,6 +11,9 @@ router.post('/', todosController.create);
 
 router.put('/:id', todosController.update);
 
+// PUT update additional labels array
+router.put('/update-labels/:id', todosController.updateAdditionalLabels);
+
 /* DELETE a todo */
 router.delete('/:id', todosController.delete)
 

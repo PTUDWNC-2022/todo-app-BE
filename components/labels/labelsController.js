@@ -36,3 +36,21 @@ exports.pushNewLabel = async (req, res) => {
     res.status(500).json({ errors: e.message });
   }
 };
+
+exports.removeLabel = async (req, res) => {
+  const { documentId, label } = req.body;
+  try {
+    const isExisted = await labelsModel.checkDocumentExists(documentId);
+    if (!isExisted) return res.status(500).json({ errors: 'Document not found!' });
+    
+    const updateOne = await labelsService.remove(documentId, label);
+    if (updateOne) {
+      res.status(200).json({ message: 'Successfully remove label.' });
+    } else {
+      res.status(500).json({ message: 'Error!' });
+    }
+  } catch (e) {
+    res.status(500).json({ errors: e.message });
+  }
+};
+

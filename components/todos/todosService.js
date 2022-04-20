@@ -47,3 +47,14 @@ exports.getTodoByUserId = async (userId) => {
 
 	return null;
 };
+
+exports.updateAdditionalLabels = async (todoId, newLabelsArray) => {
+	try {
+		const result = await todosModel.updateAdditionalLabels(todoId, newLabelsArray);
+		if (result.acknowledged) return result;
+		
+		return null;
+	} catch (e) {
+		throw new Error(e);
+	}
+};
