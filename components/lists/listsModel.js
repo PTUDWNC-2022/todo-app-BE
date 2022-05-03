@@ -25,7 +25,10 @@ exports.listByName = async (name) => {
   try {
     const documentFound = await db()
       .collection(LISTS)
-      .find({ name: { $regex: `${name}\\s\\(\\d+\\)|^${name}$` } })
+      .find({
+        name: { $regex: `${name}\\s\\(\\d+\\)|${name}\\n` },
+        disabled: true,
+      })
       .toArray();
 
     return { length: documentFound.length };
