@@ -4,5 +4,6 @@ const listsController = require("./listsController");
 
 router.get("/user/:userId", listsController.listByUserId);
 router.post("/", listsController.addNewList);
+router.put("/update", listsController.update);
 
 module.exports = router;

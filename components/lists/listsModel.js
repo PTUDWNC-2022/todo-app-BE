@@ -36,9 +36,11 @@ exports.listByName = async (name) => {
 
 exports.update = async (list) => {
   try {
+    const { _id, ...rest } = list;
+
     return await db()
       .collection(LISTS)
-      .updateOne({ _id: ObjectId(list._id) }, { $set: { ...list } });
+      .updateOne({ _id: ObjectId(_id) }, { $set: { ...rest } });
   } catch (e) {
     throw new Error(e);
   }

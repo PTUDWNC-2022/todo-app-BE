@@ -33,6 +33,7 @@ exports.update = async (list) => {
     }
 
     const result = await listsModel.update(list);
+    return result.acknowledged;
   } catch (e) {
     throw new Error(e);
   }
