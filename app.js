@@ -13,6 +13,7 @@ const indexRouter = require('./routes/index');
 const todosRouter = require('./components/todos');
 const authenticationRouter = require('./components/authentication');
 const labelsRouter = require('./components/labels');
+const listsRouter = require('./components/lists');
 const usersRouter = require('./components/users');
 const cors = require('cors');
 
@@ -60,6 +61,7 @@ app.use(
 	todosRouter
 );
 app.use('/labels', passport.authenticate('jwt', { session: false }), labelsRouter);
+app.use('/lists', passport.authenticate('jwt', { session: false }), listsRouter);
 app.use(
 	'/user',
 	passport.authenticate('jwt', { session: false }),

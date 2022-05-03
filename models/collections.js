@@ -1,5 +1,6 @@
 module.exports = {
 	USERS: 'users',
 	TODOS: 'todos',
-	LABELS: 'labels'
+	LABELS: 'labels',
+	LISTS: 'lists'
 };

@@ -1,50 +1,50 @@
-const { TODOS, LABELS} = require('../../models/collections');
-const { ObjectId } = require('mongodb');
-const { db } = require('../../models/db');
+const { TODOS } = require("../../models/collections");
+const { ObjectId } = require("mongodb");
+const { db } = require("../../models/db");
 
 exports.findOneById = async (id) => {
-	try {
-		const result = await db()
-			.collection(TODOS)
-			.findOne({ _id: ObjectId(id) })
-		return result
-	} catch (error) {
-		throw new Error(error)
-	}
-}
+  try {
+    const result = await db()
+      .collection(TODOS)
+      .findOne({ _id: ObjectId(id) });
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 exports.list = async () => {
-	try {
-		return await db().collection(TODOS).find().toArray();
-	} catch (error) {
-		throw new Error(error);
-	}
+  try {
+    return await db().collection(TODOS).find().toArray();
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 exports.delete = async (todoId) => {
-	try {
-		return await db()
+  try {
+    return await db()
       .collection(TODOS)
       .deleteOne({ _id: ObjectId(todoId) });
-	} catch (error) {
-		throw new Error(error);
-	}
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 exports.update = async (todoId, newBody) => {
-	const filter = { _id: ObjectId(todoId) };
-	const options = { upsert: false };
-	const update = { $set: { ...newBody } };
-	try {
-		return await db().collection(TODOS).updateOne(filter, update, options);
-	} catch (error) {
-		throw new Error(error);
-	}
+  const filter = { _id: ObjectId(todoId) };
+  const options = { upsert: false };
+  const update = { $set: { ...newBody } };
+  try {
+    return await db().collection(TODOS).updateOne(filter, update, options);
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 exports.create = async (newBody) => {
-	try {
-		return await db()
+  try {
+    return await db()
       .collection(TODOS)
       .insertOne({
         name: newBody.name,
@@ -52,31 +52,31 @@ exports.create = async (newBody) => {
         userId: ObjectId(newBody.userId),
         createdDate: Date.now(),
       });
-	} catch (error) {
-		throw new Error(error);
-	}
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 exports.getTodoByUserId = async (userId) => {
-	try {
-		return await db()
+  try {
+    return await db()
       .collection(TODOS)
       .find({ userId: ObjectId(userId) })
       .toArray();
-	} catch (error) {
-		throw new Error(error);
-	}
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 exports.updateAdditionalLabels = async (todoId, newLabelsArray) => {
-	try {
-		return await db()
-			.collection(TODOS)
-			.updateOne(
-				{ _id: ObjectId(todoId) },
-				{ $set: { additionalLabels: newLabelsArray } }
-			);
-	} catch (e) {
-		throw new Error(e);
-	}
+  try {
+    return await db()
+      .collection(TODOS)
+      .updateOne(
+        { _id: ObjectId(todoId) },
+        { $set: { additionalLabels: newLabelsArray } }
+      );
+  } catch (e) {
+    throw new Error(e);
+  }
 };
