@@ -59,3 +59,12 @@ exports.pushTodoOrder = async (userId, todoId) => {
 		throw new Error(error);
 	}
 };
+
+exports.findUserById = async (userId) => {
+	try {
+		const user = await db().collection(USERS).findOne({_id: ObjectId(userId)});
+		if (user) return user;
+	} catch (e) {
+		throw new Error(e);
+	}
+};

@@ -48,3 +48,13 @@ exports.update = async (list) => {
     throw new Error(e);
   }
 };
+
+exports.findListById = async (listId) => {
+	try {
+		const list = await db().collection(LISTS).findOne({_id: ObjectId(listId)});
+		if (list) return list;
+	} catch (e) {
+		throw new Error(e);
+	}
+};
+
