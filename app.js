@@ -20,6 +20,7 @@ const cors = require('cors');
 const allowList = [
 	'http://localhost:3000',
 	'https://todosapp-advancedwebdev.netlify.app',
+	'https://todoapp-advancedwebdev.netlify.app',
 ];
 
 const corsOptionsDelegate = (req, callback) => {
